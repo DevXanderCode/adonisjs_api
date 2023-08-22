@@ -20,6 +20,8 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
+Route.post('/topic/store', 'TopicsController.store').as('topics.store')
+
 Route.get('/', async () => {
   return { hello: 'world' }
 })

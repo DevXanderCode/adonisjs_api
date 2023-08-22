@@ -4,11 +4,13 @@ import {
   BelongsTo,
   HasMany,
   HasOne,
+  beforeSave,
   belongsTo,
   column,
   hasMany,
   hasOne,
 } from '@ioc:Adonis/Lucid/Orm'
+import Hash from '@ioc:Adonis/Core/Hash'
 import Profile from './Profile'
 import Role from './Role'
 import Post from './Post'
@@ -46,4 +48,11 @@ export default class User extends BaseModel {
 
   @hasMany(() => Post)
   public posts: HasMany<typeof Post>
+
+  @beforeSave()
+  public static async hashPassword(user: User) {
+    if (user?.$dirty?.password) {
+      user.password = await Hash.make(user?.password)
+    }
+  }
 }

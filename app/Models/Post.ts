@@ -1,6 +1,16 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import {
+  BaseModel,
+  BelongsTo,
+  ManyToMany,
+  belongsTo,
+  column,
+  manyToMany,
+} from '@ioc:Adonis/Lucid/Orm'
 import { AttachmentContract, attachment } from '@ioc:Adonis/Addons/AttachmentLite'
+import User from './User'
+import State from './State'
+import Topic from './Topic'
 
 export default class Post extends BaseModel {
   @column({ isPrimary: true })
@@ -32,4 +42,13 @@ export default class Post extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @belongsTo(() => User)
+  public author: BelongsTo<typeof User>
+
+  @belongsTo(() => State)
+  public state: BelongsTo<typeof State>
+
+  @manyToMany(() => Topic, { pivotColumns: ['sort_order'] })
+  public topics: ManyToMany<typeof Topic>
 }

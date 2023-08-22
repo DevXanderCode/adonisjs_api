@@ -5,6 +5,15 @@ export default class Topic extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
+  @column()
+  public name: string
+
+  @column()
+  public slug: string
+
+  @column()
+  public description: string | null
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

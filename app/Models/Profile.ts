@@ -7,13 +7,13 @@ export default class Profile extends BaseModel {
   public id: number
 
   @column()
-  public user_id: number
+  public userId: number
 
   @column()
-  public biography: string
+  public biography: string | null
 
   @attachment()
-  public avatar: AttachmentContract
+  public avatar: AttachmentContract | null
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
